@@ -11,7 +11,7 @@ RSpec.describe LocationService do
         expect(lat_lon.dig(:results, 0, :locations, 0, :latLng)).to have_key(:lat)
         expect(lat_lon.dig(:results, 0, :locations, 0, :latLng, :lat)).to be_a(Float)
         expect(lat_lon.dig(:results, 0, :locations, 0, :latLng)).to have_key(:lng)
-        expect(lat_lon.dig(:results, 0, :locations, 0, :latLng, :lon)).to be_a(Float)
+        expect(lat_lon.dig(:results, 0, :locations, 0, :latLng, :lng)).to be_a(Float)
       end
     end
   end
