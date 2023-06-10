@@ -12,10 +12,13 @@ RSpec.describe WeatherService do
     end
   end
   describe 'instance methods' do
+    before(:all) do
+      @ws = WeatherService.new(38.89037, -77.03196)
+    end
     describe '#current_weather' do
       it 'returns the weather api response for current weather for given lat/lon' do
         keys = [:last_updated, :temp_f, :feelslike_f, :humidity, :uv, :vis_miles, :condition]
-        cw = WeatherService.new(38.89037, -77.03196).current_weather
+        cw = @ws.current_weather
 
         expect(cw).to have_key(:current)
         keys.each do |key|
@@ -27,7 +30,7 @@ RSpec.describe WeatherService do
     end
     describe '#daily_weather' do
       it 'returns the weather api response for 5 days weather for given lat/lon' do
-        dw = WeatherService.new(38.89037, -77.03196).daily_weather
+        dw = @ws.daily_weather
 
         expect(dw.dig(:forecast, :forecastday, 0)).to have_key(:date)
         expect(dw.dig(:forecast, :forecastday, 0)).to have_key(:day)
@@ -42,8 +45,15 @@ RSpec.describe WeatherService do
       end
     end
     describe '#hourly_weather' do
-      xit 'returns the weather api response for hourly weather for given lat/lon' do
+      it 'returns the weather api response for hourly weather for given lat/lon' do
+        hw = @ws.hourly_weather
 
+        expect(hw.dig(:forecast, :forecastday, 0)).to have_key(:hour)
+        expect(hw.dig(:forecast, :forecastday, 0, :hour, 0)).to have_key(:time)
+        expect(hw.dig(:forecast, :forecastday, 0, :hour, 0)).to have_key(:temp_f)
+        expect(hw.dig(:forecast, :forecastday, 0, :hour, 0)).to have_key(:condition)
+        expect(hw.dig(:forecast, :forecastday, 0, :hour, 0, :condition)).to have_key(:text)
+        expect(hw.dig(:forecast, :forecastday, 0, :hour, 0, :condition)).to have_key(:icon)
       end
     end
   end
