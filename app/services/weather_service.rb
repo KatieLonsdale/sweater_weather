@@ -1,7 +1,10 @@
 class WeatherService
-  def self.current_weather(lat_lon)
-    get_url("/v1/current.json?q=#{lat_lon.
-    dig(:latLng, :lat)},#{lat_lon.dig(:latLng, :lon)}")
+  def self.current_weather(lat, lon)
+    get_url("/v1/current.json?q=#{lat},#{lon}")
+  end
+
+  def self.daily_weather(lat, lon)
+    get_url ("/v1/forecast.json?days=5&q=#{lat},#{lon}")
   end
 
   def self.conn
