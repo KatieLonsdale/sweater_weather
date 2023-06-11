@@ -106,3 +106,67 @@ def current_weather
   :gust_mph=>7.2,
   :gust_kph=>11.5}
 end
+
+def daily_weather
+  @data = {:date=>"2023-06-10",
+      :date_epoch=>1686355200,
+      :day=>
+       {:maxtemp_c=>26.5,
+        :maxtemp_f=>79.7,
+        :mintemp_c=>14.2,
+        :mintemp_f=>57.6,
+        :avgtemp_c=>20.6,
+        :avgtemp_f=>69.1,
+        :maxwind_mph=>12.3,
+        :maxwind_kph=>19.8,
+        :totalprecip_mm=>0.2,
+        :totalprecip_in=>0.01,
+        :totalsnow_cm=>0.0,
+        :avgvis_km=>10.0,
+        :avgvis_miles=>6.0,
+        :avghumidity=>50.0,
+        :daily_will_it_rain=>1,
+        :daily_chance_of_rain=>79,
+        :daily_will_it_snow=>0,
+        :daily_chance_of_snow=>0,
+        :condition=>{:text=>"Patchy rain possible", :icon=>"//cdn.weatherapi.com/weather/64x64/day/176.png", :code=>1063},
+        :uv=>5.0},
+      :astro=>{:sunrise=>"05:25 AM", :sunset=>"08:26 PM", :moonrise=>"01:20 AM", :moonset=>"12:33 PM", :moon_phase=>"Last Quarter", :moon_illumination=>"59", :is_moon_up=>0, :is_sun_up=>1}
+  }
+end
+
+def hourly_weather
+  @data = {:time_epoch=>1686369600,
+  :time=>"2023-06-10 00:00",
+  :temp_c=>17.1,
+  :temp_f=>62.8,
+  :is_day=>0,
+  :condition=>{:text=>"Partly cloudy", :icon=>"//cdn.weatherapi.com/weather/64x64/night/116.png", :code=>1003},
+  :wind_mph=>7.4,
+  :wind_kph=>11.9,
+  :wind_degree=>324,
+  :wind_dir=>"NW",
+  :pressure_mb=>1008.0,
+  :pressure_in=>29.75,
+  :precip_mm=>0.0,
+  :precip_in=>0.0,
+  :humidity=>60,
+  :cloud=>51,
+  :feelslike_c=>17.1,
+  :feelslike_f=>62.8,
+  :windchill_c=>17.1,
+  :windchill_f=>62.8,
+  :heatindex_c=>17.1,
+  :heatindex_f=>62.8,
+  :dewpoint_c=>9.4,
+  :dewpoint_f=>48.9,
+  :will_it_rain=>0,
+  :chance_of_rain=>0,
+  :will_it_snow=>0,
+  :chance_of_snow=>0,
+  :vis_km=>10.0,
+  :vis_miles=>6.0,
+  :gust_mph=>10.1,
+  :gust_kph=>16.2,
+  :uv=>1.0}
+end
