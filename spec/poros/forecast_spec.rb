@@ -2,10 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Forecast do
   before(:all) do
-    @cw = instance_double(CurrentWeather)
-    @dw = instance_double(DailyWeather)
-    @hw = instance_double(HourlyWeather)
-    @forecast = Forecast.new(@cw, @dw, @hw)
+    forecast
   end
   describe 'class methods' do
     describe '::initialize' do
