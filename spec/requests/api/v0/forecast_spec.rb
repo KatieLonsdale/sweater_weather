@@ -8,7 +8,7 @@ RSpec.describe 'Forecast API' do
     @attribute_keys = [:current_weather, :daily_weather, :hourly_weather]
     @cw_keys = [:last_updated, :temperature, :feels_like, :humidity, :uvi, :visibility, :condition, :icon]
     @dw_keys = [:date, :sunrise, :sunset, :max_temp, :min_temp, :condition, :icon]
-    @hw_keys = [:time, :temperature, :conditions, :icon]
+    @hw_keys = [:time, :temperature, :condition, :icon]
 
   end
   describe 'happy path' do
