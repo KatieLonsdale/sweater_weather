@@ -170,3 +170,14 @@ def hourly_weather
   :gust_kph=>16.2,
   :uv=>1.0}
 end
+
+def forecast
+  current_weather
+  cw = CurrentWeather.new(@data)
+  daily_weather
+  dw = DailyWeather.new(@data)
+  hourly_weather
+  hw = HourlyWeather.new(@data)
+
+  @forecast = Forecast.new(cw, dw, hw)
+end
