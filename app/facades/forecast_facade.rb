@@ -1,7 +1,13 @@
 class ForecastFacade
-  def self.weather_for_city(location)
+  attr_reader :location
+
+  def initialize(location)
+    @location = location
+  end
+
+  def weather_for_city
     # look up lat/lon for given location
-    lat_lon = LocationService.location_info(location)
+    lat_lon = LocationService.location_info(@location)
     lat = lat_lon.dig(:results, 0, :locations, 0, :latLng, :lat)
     lon = lat_lon.dig(:results, 0, :locations, 0, :latLng, :lng)
     # send lat/lon to weather service(3)
