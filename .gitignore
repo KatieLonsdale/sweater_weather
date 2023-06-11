@@ -30,3 +30,9 @@
 
 # Ignore application configuration
 /config/application.yml
+
+# Ignore cassettes
+/spec/fixtures
+
+# Ignore simplecov
+/coverage
