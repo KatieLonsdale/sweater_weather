@@ -13,7 +13,7 @@ RSpec.describe 'Forecast API' do
   end
   describe 'happy path' do
     describe 'retrieve forecast for given city' do
-      it 'returns the current weather' do
+      it 'returns the current weather', :vcr do
         expect(response.status).to eq(200)
         @data_keys.each do |key|
           expect(@data).to have_key(key)
