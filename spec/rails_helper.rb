@@ -80,3 +80,29 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+def current_weather
+  @data = {:last_updated_epoch=>1686441600,
+  :last_updated=>"2023-06-10 20:00",
+  :temp_c=>23.9,
+  :temp_f=>75.0,
+  :is_day=>1,
+  :condition=>{:text=>"Partly cloudy", :icon=>"//cdn.weatherapi.com/weather/64x64/day/116.png", :code=>1003},
+  :wind_mph=>2.2,
+  :wind_kph=>3.6,
+  :wind_degree=>263,
+  :wind_dir=>"W",
+  :pressure_mb=>1010.0,
+  :pressure_in=>29.82,
+  :precip_mm=>0.0,
+  :precip_in=>0.0,
+  :humidity=>37,
+  :cloud=>50,
+  :feelslike_c=>24.9,
+  :feelslike_f=>76.9,
+  :vis_km=>14.0,
+  :vis_miles=>8.0,
+  :uv=>6.0,
+  :gust_mph=>7.2,
+  :gust_kph=>11.5}
+end
