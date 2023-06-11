@@ -38,4 +38,15 @@ RSpec.describe 'Forecast API' do
       end
     end
   end
+  describe 'sad path' do
+    it 'returns a 400 error if the query is blank' do
+      get '/api/v0/forecast?location='
+
+      expect(response.status).to eq(400)
+      message = JSON.parse(response.body, symbolize_names: true)
+
+      expect(message).to be_a(Hash)
+      expect(message[:errors][:detail]).to eq("Invalid search.")
+    end
+  end
 end
