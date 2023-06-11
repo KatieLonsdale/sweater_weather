@@ -6,23 +6,47 @@ class ForecastFacade
   end
 
   def weather_for_city
-    # look up lat/lon for given location
-    lat_lon = LocationService.location_info(@location)
-    lat = lat_lon.dig(:results, 0, :locations, 0, :latLng, :lat)
-    lon = lat_lon.dig(:results, 0, :locations, 0, :latLng, :lng)
-    # send lat/lon to weather service(3)
-    cw = WeatherService.new(lat, lon).current_weather
-    dw = WeatherService.new(lat, lon).daily_weather
-    hw = WeatherService.new(lat, lon).hourly_weather
-    # create cw, hw, dw objects with weather service returns
-    cwo = CurrentWeather.new(cw[:current])
-    dwo = dw.dig(:forecast, :forecastday).map do |day|
-      DailyWeather.new(day)
-    end
-    hwo = hw.dig(:forecast, :forecastday, 0, :hour).map do |hour|
+    Forecast.new(current_weather, daily_weather, hourly_weather)
+  end
+
+  private
+
+  def location_service
+    @_location_service ||= LocationService.new(@location)
+  end
+
+  def location_info
+    @_location_info ||= location_service.location_info
+  end
+
+  def lat
+    @_lat ||= location_info.dig(:results, 0, :locations, 0, :latLng, :lat)
+  end
+  
+  def lon
+    @_lon ||= location_info.dig(:results, 0, :locations, 0, :latLng, :lng)
+  end
+
+  def weather_service
+    @_weather_service ||= WeatherService.new(lat, lon)
+  end
+
+  def current_weather
+    cw = weather_service.current_weather
+    CurrentWeather.new(cw[:current])
+  end
+
+  def hourly_weather
+    hw = weather_service.hourly_weather
+    hw.dig(:forecast, :forecastday, 0, :hour).map do |hour|
       HourlyWeather.new(hour)
     end
-    # create forecast object with cw, hw, dw as attributes
-    Forecast.new(cwo, dwo, hwo)
+  end
+
+  def daily_weather
+    dw = weather_service.daily_weather
+    dw.dig(:forecast, :forecastday).map do |day|
+      DailyWeather.new(day)
+    end
   end
 end
