@@ -16,7 +16,7 @@ RSpec.describe WeatherService do
       @ws = WeatherService.new(38.89037, -77.03196)
     end
     describe '#current_weather' do
-      it 'returns the weather api response for current weather for given lat/lon' do
+      it 'returns the weather api response for current weather for given lat/lon', :vcr do
         keys = [:last_updated, :temp_f, :feelslike_f, :humidity, :uv, :vis_miles, :condition]
         cw = @ws.current_weather
 
@@ -29,7 +29,7 @@ RSpec.describe WeatherService do
       end
     end
     describe '#daily_weather' do
-      it 'returns the weather api response for 5 days weather for given lat/lon' do
+      it 'returns the weather api response for 5 days weather for given lat/lon', :vcr do
         dw = @ws.daily_weather
 
         expect(dw.dig(:forecast, :forecastday, 0)).to have_key(:date)
@@ -45,7 +45,7 @@ RSpec.describe WeatherService do
       end
     end
     describe '#hourly_weather' do
-      it 'returns the weather api response for hourly weather for given lat/lon' do
+      it 'returns the weather api response for hourly weather for given lat/lon', :vcr do
         hw = @ws.hourly_weather
 
         expect(hw.dig(:forecast, :forecastday, 0)).to have_key(:hour)
