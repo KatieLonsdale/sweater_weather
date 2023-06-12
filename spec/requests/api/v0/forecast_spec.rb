@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Forecast API' do
+RSpec.describe 'Forecast endpoints' do
   before(:all) do
     @data_keys = [:id, :type, :attributes]
     @attribute_keys = [:current_weather, :daily_weather, :hourly_weather]
