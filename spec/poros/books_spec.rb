@@ -23,6 +23,7 @@ RSpec.describe Books do
     it 'exists and has attributes' do
 
       expect(@books).to be_a(Books)
+      expect(@books.id).to eq(nil)
       expect(@books.destination).to eq('denver,co')
       expect(@books.forecast).to eq(@forecast)
       expect(@books.forecast).to be_a(BriefForecast)
