@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Book endpoints' do
   describe 'search for book about location' do
-    it 'returns 5 books about the given location' do
+    it 'returns 5 books about the given location', :vcr do
       get '/api/v1/book-search?location=denver,co&quantity=5'
 
       data = JSON.parse(response.body, symbolize_names: true)
@@ -13,7 +13,7 @@ RSpec.describe 'Book endpoints' do
       books_keys = [:isbn, :title, :publisher]
 
       expect(response.status).to eq(200)
-      
+
       data_keys.each do |key|
         expect(data[:data]).to have_key(key)
       end
