@@ -1,12 +1,12 @@
 class BooksFacade
-  attr_reader :location
+  attr_reader :location, :quantity
 
-  def initialize(location)
+  def initialize(location, quantity)
     @location = location
+    @quantity = quantity
   end
 
-  def search_by_location(quantity)
-    @quantity = quantity
+  def search_by_location
     Books.new(format_books_data)
   end
 
