@@ -12,8 +12,12 @@ class BooksFacade
 
   private
 
+  def book_service
+    @_service ||= BooksService.new
+  end
+
   def results
-    BooksService.new.search_by_location(format_location)
+    book_service.search_by_location(format_location)
   end
 
   def format_location
