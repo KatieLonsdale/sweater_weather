@@ -38,5 +38,13 @@ RSpec.describe 'Book endpoints' do
 
       expect(data.dig(:error, :message)).to eq("Validation failed: Location must be provided")
     end
+    it 'defaults to 3 results if invalid or no quantity is provided', :vcr do
+      get '/api/v1/book-search?location=denver,co'
+
+      expect(response.status).to eq(200)
+      data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(data.dig(:data, :attributes, :books).count).to eq(3)
+    end
   end
 end
