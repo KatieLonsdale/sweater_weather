@@ -11,4 +11,10 @@ Rails.application.routes.draw do
       resources :users, only: %i[create]
     end
   end
+
+  namespace :api do
+    namespace :v1 do
+      get '/book-search', to: 'books#search'
+    end
+  end
 end
