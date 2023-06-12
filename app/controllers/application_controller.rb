@@ -1,8 +1,7 @@
 class ApplicationController < ActionController::API
 rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid_response
 
-def render_no_record_response
-  require 'pry'; binding.pry
-  render json: ErrorSerializer.error_message(error.message), status: :not_found
-end
+  def render_record_invalid_response(error)
+    render json: {error: {message: error.message}}, status: 422
+  end
 end
