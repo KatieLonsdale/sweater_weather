@@ -101,5 +101,34 @@ RSpec.describe 'User endpoints' do
         expect(data.dig(:data, :attributes)).to_not have_key(:password_digest)
       end
     end
+    describe 'sad path' do
+      it 'returns an error if the password is incorrect' do
+        user_1 = User.create!(email: "whatever@example.com", password: "password", password_confirmation: "password")
+        user_params = {
+            email: "whatever@example.com",
+            password: "wrong_password"
+          }
+        headers = {"CONTENT_TYPE" => "application/json"}
+        
+        post '/api/v0/sessions', headers: headers, params: JSON.generate(user_params)
+        expect(response.status).to eq(401)
+        data = JSON.parse(response.body, symbolize_names: true)
+
+        expect(data.dig(:error, :message)).to eq("Incorrect email or password.")
+      end
+      it 'returns an error if user does not exist' do
+        user_params = {
+            email: "whatever@example.com",
+            password: "password"
+          }
+        headers = {"CONTENT_TYPE" => "application/json"}
+        
+        post '/api/v0/sessions', headers: headers, params: JSON.generate(user_params)
+        data = JSON.parse(response.body, symbolize_names: true)
+
+        expect(response.status).to eq(404)
+        expect(data.dig(:error, :message)).to eq("User not found.")
+      end
+    end
   end
 end
