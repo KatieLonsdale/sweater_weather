@@ -30,5 +30,13 @@ RSpec.describe 'Book endpoints' do
       expect(data[:id]).to eq(nil)
       expect(data.dig(:data, :attributes, :books).count).to eq(5)
     end
+    it 'returns an error if no location is provided' do
+      get '/api/v1/book-search?quantity=5'
+
+      expect(response.status).to eq(422)
+      data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(data.dig(:error, :message)).to eq("Validation failed: Location must be provided")
+    end
   end
 end
