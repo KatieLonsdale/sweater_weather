@@ -1,12 +1,10 @@
 class Api::V0::SessionsController < ApplicationController
   def create
     user = User.find_by(email: params[:email])
-    if !user
-      raise ActiveRecord::RecordNotFound, "User not found."
+    if !user || !user.authenticate(params[:password])
+      invalid_user
     elsif user.authenticate(params[:password])
       render json: UserSerializer.new(user)
-    else
-      invalid_user
     end
   end
 
