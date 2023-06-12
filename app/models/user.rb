@@ -4,9 +4,9 @@ class User < ApplicationRecord
   validates :email, 
             presence: true, 
             uniqueness: { case_sensitive: false}
-  validates :api_key, 
-            presence: true, 
-            uniqueness: true
+  # validates :api_key, 
+  #           presence: true, 
+  #           uniqueness: true
   validates_presence_of :password
 
   has_secure_password
