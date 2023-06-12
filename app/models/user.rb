@@ -14,6 +14,6 @@ class User < ApplicationRecord
   private
 
   def create_api_key
-    SecureRandom.base64
+    self.api_key = SecureRandom.base64
   end
 end
