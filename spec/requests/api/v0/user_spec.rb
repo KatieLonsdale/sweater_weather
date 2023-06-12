@@ -111,9 +111,9 @@ RSpec.describe 'User endpoints' do
         headers = {"CONTENT_TYPE" => "application/json"}
         
         post '/api/v0/sessions', headers: headers, params: JSON.generate(user_params)
-        expect(response.status).to eq(401)
         data = JSON.parse(response.body, symbolize_names: true)
-
+        
+        expect(response.status).to eq(401)
         expect(data.dig(:error, :message)).to eq("Incorrect email or password.")
       end
       it 'returns an error if user does not exist' do
@@ -126,8 +126,9 @@ RSpec.describe 'User endpoints' do
         post '/api/v0/sessions', headers: headers, params: JSON.generate(user_params)
         data = JSON.parse(response.body, symbolize_names: true)
 
-        expect(response.status).to eq(404)
-        expect(data.dig(:error, :message)).to eq("User not found.")
+        expect(response.status).to eq(401)
+        # same message as incorrect password so it's not clear which is wrong(security)
+        expect(data.dig(:error, :message)).to eq("Incorrect email or password.")
       end
     end
   end
