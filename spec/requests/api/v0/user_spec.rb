@@ -40,7 +40,7 @@ RSpec.describe 'User endpoints' do
 
         expect(data.dig(:error, :message)).to eq("Validation failed: Email has already been taken")
       end
-      xit 'returns an error if passwords dont match' do
+      it 'returns an error if passwords dont match' do
         user_params = {
           email: 'something@example.com',
           password: "password",
@@ -54,7 +54,7 @@ RSpec.describe 'User endpoints' do
 
         expect(data.dig(:error, :message)).to eq("Validation failed: Password confirmation doesn't match Password")
       end
-      xit 'returns an error if a field is blank' do
+      it 'returns an error if a field is blank' do
         user_params = {
           email: '',
           password: "password",
