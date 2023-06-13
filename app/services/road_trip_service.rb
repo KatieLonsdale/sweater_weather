@@ -1,5 +1,5 @@
 class RoadTripService
-  def road_trip(origin, destination)
+  def get_road_trip(origin, destination)
     get_url("/directions/v2/route?from=#{origin}&to=#{destination}")
   end
 
