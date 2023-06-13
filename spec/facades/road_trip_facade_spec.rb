@@ -17,4 +17,15 @@ RSpec.describe RoadTripFacade do
       end
     end
   end
+  describe 'instance methods' do
+    describe '#create_road_trip' do
+      it 'creates a road trip object', :vcr do
+        road_trip = @rtf.create_road_trip
+        expect(road_trip).to be_a(RoadTrip)
+        expect(road_trip.start_city).to eq(@rtf.origin)
+        expect(road_trip.end_city).to eq(@rtf.destination)
+        expect(road_trip.weather_at_eta).to be_a(DestinationForecast)
+      end
+    end
+  end
 end
