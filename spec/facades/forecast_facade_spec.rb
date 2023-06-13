@@ -26,5 +26,12 @@ RSpec.describe ForecastFacade do
         expect(forecast.hourly_weather[0]).to be_a(HourlyWeather)
       end
     end
+    describe '#weather_for_destination' do
+       it' returns an array of hourly forecasts', :vcr do
+        forecast = @ff.weather_for_destination
+        expect(forecast).to be_a(Array)
+        expect(forecast.count).to eq(24)
+       end
+    end
   end
 end
