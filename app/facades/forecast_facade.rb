@@ -10,7 +10,7 @@ class ForecastFacade
   end
 
   def weather_for_destination
-    weather_service.hourly_weather.dig(:forecast, :forecastday, 0, :hour)
+    weather_service.daily_weather.dig(:forecast, :forecastday)
   end
 
   def local_time
