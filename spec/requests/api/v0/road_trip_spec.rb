@@ -8,7 +8,7 @@ RSpec.describe 'Road trip endpoints' do
         @attribute_keys = [:start_city, :end_city, :travel_time, :weather_at_eta]
         @weather_keys = [:datetime, :temperature, :condition]
       end
-      it 'creates a road trip and returns the details' do
+      it 'creates a road trip and returns the details', :vcr do
         user_1 = User.create!(email: "whatever@example.com", password: "password", password_confirmation: "password")
         user_1.api_key = "t1h2i3s4_i5s6_l7e8g9i10t11"
 
