@@ -26,6 +26,14 @@ RSpec.describe RoadTripFacade do
         expect(road_trip.end_city).to eq(@rtf.destination)
         expect(road_trip.weather_at_eta).to be_a(DestinationForecast)
       end
+      it 'returns nil if road trip is not possible', :vcr do
+        details = {
+          origin: "Cincinatti,OH", 
+          destination: "London, UK"
+        }
+        rtf = RoadTripFacade.new(details).create_road_trip
+        expect(rtf).to eq(nil)
+      end
     end
   end
 end
