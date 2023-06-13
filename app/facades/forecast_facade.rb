@@ -9,6 +9,10 @@ class ForecastFacade
     Forecast.new(current_weather, daily_weather, hourly_weather)
   end
 
+  def weather_for_destination
+    weather_service.hourly_weather.dig(:forecast, :forecastday, 0, :hour)
+  end
+
   private
 
   def location_service
