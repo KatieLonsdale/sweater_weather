@@ -20,6 +20,7 @@ RSpec.describe RoadTrip do
     describe '::initialize' do
       it 'exists and has attributes' do
         expect(@road_trip).to be_a(RoadTrip)
+        expect(@road_trip.id).to eq(nil)
         expect(@road_trip.start_city).to eq('cincinatti, oh')
         expect(@road_trip.end_city).to eq('chicago, il')
         expect(@road_trip.travel_time).to eq("04:20:37")
