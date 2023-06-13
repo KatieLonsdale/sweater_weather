@@ -24,14 +24,27 @@ class RoadTripFacade
     get_road_trip.dig(:route, :formattedTime)
   end
 
+  def hours_ahead
+    hours = travel_time.split(':').first
+    hours.to_i % 24
+  end
+
+  def days_ahead
+    hours = travel_time.split(':').first
+    (hours.to_i + local_time.hour) / 24
+  end
+
+  def local_time
+    @_local_time = ForecastFacade.new(@destination).local_time
+  end
+
   def arrival_time_hour
-    local_time = ForecastFacade.new(@destination).local_time
-    local_time.hour + DateTime.parse(travel_time).hour
+    (local_time.hour + hours_ahead) % 24
   end
 
   def weather_info
-    hourly = ForecastFacade.new(@destination).weather_for_destination
-    hourly[arrival_time_hour]
+    daily = ForecastFacade.new(@destination).weather_for_destination
+    daily.dig(days_ahead, :hour, arrival_time_hour)
   end
 
   def road_trip_info
