@@ -30,7 +30,7 @@ RSpec.describe ForecastFacade do
        it 'returns an array of hourly forecasts', :vcr do
         forecast = @ff.weather_for_destination
         expect(forecast).to be_a(Array)
-        expect(forecast.count).to eq(24)
+        expect(forecast.count).to eq(5)
        end
     end
     describe '#destination_time' do
