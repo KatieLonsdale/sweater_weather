@@ -27,11 +27,17 @@ RSpec.describe ForecastFacade do
       end
     end
     describe '#weather_for_destination' do
-       it' returns an array of hourly forecasts', :vcr do
+       it 'returns an array of hourly forecasts', :vcr do
         forecast = @ff.weather_for_destination
         expect(forecast).to be_a(Array)
         expect(forecast.count).to eq(24)
        end
+    end
+    describe '#destination_time' do
+      it 'returns the local time for location', :vcr do
+        local_time = @ff.local_time
+        expect(local_time).to be_a(DateTime)
+      end
     end
   end
 end
