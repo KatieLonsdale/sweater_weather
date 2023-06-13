@@ -7,7 +7,9 @@ class RoadTripFacade
   end
 
   def create_road_trip
-    RoadTrip.new(road_trip_info)
+    unless get_road_trip.nil?
+      RoadTrip.new(road_trip_info)
+    end
   end
 
   private
@@ -18,6 +20,7 @@ class RoadTripFacade
 
   def get_road_trip
     @_road_trip ||= road_trip_service.get_road_trip(@origin, @destination)
+    @_road_trip.dig(:info, :statuscode) == 402 ? nil : @_road_trip
   end
 
   def travel_time
