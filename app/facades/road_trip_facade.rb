@@ -16,10 +16,6 @@ class RoadTripFacade
     @_road_trip_service ||= RoadTripService.new
   end
 
-  def weather_service
-    @_weather_service ||= WeatherService.new
-  end
-
   def get_road_trip
     @_road_trip ||= road_trip_service.get_road_trip(@origin, @destination)
   end
