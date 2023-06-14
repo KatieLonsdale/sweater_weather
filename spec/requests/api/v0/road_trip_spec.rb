@@ -35,6 +35,7 @@ RSpec.describe 'Road trip endpoints' do
         end
 
         expect(data.dig(:data, :id)).to eq(nil)
+        expect(data.dig(:data, :type)).to eq('road_trip')
         expect(data.dig(:data, :attributes, :start_city)).to eq("Cincinatti,OH")
         expect(data.dig(:data, :attributes, :end_city)).to eq("Chicago,IL")
 
