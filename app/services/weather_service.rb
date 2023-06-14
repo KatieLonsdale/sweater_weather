@@ -7,15 +7,19 @@ class WeatherService
   end
 
   def current_weather
-    get_url("/v1/current.json?q=#{@lat},#{@lon}")
+    get_url("/v1/current.json?q=#{@lat}, #{@lon}")
   end
 
   def daily_weather
-    get_url ("/v1/forecast.json?days=5&q=#{@lat},#{@lon}")
+    get_url("/v1/forecast.json?days=5&q=#{@lat}, #{@lon}")
   end
 
   def hourly_weather
-    get_url ("/v1/forecast.json?q=#{@lat},#{@lon}")
+    get_url("/v1/forecast.json?q=#{@lat}, #{@lon}")
+  end
+
+  def local_time
+    get_url("/v1/timezone.json?q=#{@lat}, #{@lon}")
   end
 
   def conn

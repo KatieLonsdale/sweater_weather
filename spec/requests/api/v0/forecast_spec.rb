@@ -34,7 +34,10 @@ RSpec.describe 'Forecast endpoints' do
 
         expect(@data[:id]).to eq(nil)
 
-        # test that unwanted data is not present
+        expect(@data).to_not have_key(:location)
+        expect(@data).to_not have_key(:forecast)
+        expect(@data).to_not have_key(:current)
+
       end
     end
   end
@@ -47,6 +50,10 @@ RSpec.describe 'Forecast endpoints' do
 
       expect(message).to be_a(Hash)
       expect(message[:errors][:detail]).to eq("Invalid search.")
+
+      expect(message).to_not have_key(:id)
+      expect(message).to_not have_key(:type)
+      expect(message).to_not have_key(:attributes)
     end
   end
 end

@@ -16,7 +16,7 @@ RSpec.describe WeatherService do
       @ws = WeatherService.new(38.89037, -77.03196)
     end
     describe '#current_weather' do
-      it 'returns the weather api response for current weather for given lat/lon', :vcr do
+      it 'returns the weather api response for current weather', :vcr do
         keys = [:last_updated, :temp_f, :feelslike_f, :humidity, :uv, :vis_miles, :condition]
         cw = @ws.current_weather
 
@@ -29,7 +29,7 @@ RSpec.describe WeatherService do
       end
     end
     describe '#daily_weather' do
-      it 'returns the weather api response for 5 days weather for given lat/lon', :vcr do
+      it 'returns the weather api response for 5 days weather', :vcr do
         dw = @ws.daily_weather
 
         expect(dw.dig(:forecast, :forecastday, 0)).to have_key(:date)
@@ -45,7 +45,7 @@ RSpec.describe WeatherService do
       end
     end
     describe '#hourly_weather' do
-      it 'returns the weather api response for hourly weather for given lat/lon', :vcr do
+      it 'returns the weather api response for hourly weather', :vcr do
         hw = @ws.hourly_weather
 
         expect(hw.dig(:forecast, :forecastday, 0)).to have_key(:hour)
@@ -54,6 +54,13 @@ RSpec.describe WeatherService do
         expect(hw.dig(:forecast, :forecastday, 0, :hour, 0)).to have_key(:condition)
         expect(hw.dig(:forecast, :forecastday, 0, :hour, 0, :condition)).to have_key(:text)
         expect(hw.dig(:forecast, :forecastday, 0, :hour, 0, :condition)).to have_key(:icon)
+      end
+    end
+    describe '#local_time' do
+      it 'returns weather api response for local time endpoint', :vcr do
+        local_time = @ws.local_time
+
+        expect(local_time[:location]).to have_key(:localtime)
       end
     end
   end
