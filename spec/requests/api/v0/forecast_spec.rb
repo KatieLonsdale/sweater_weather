@@ -13,30 +13,31 @@ RSpec.describe 'Forecast endpoints' do
     describe 'retrieve forecast for given city' do
       it 'returns the current weather', :vcr do
         get '/api/v0/forecast?location=cincinatti,oh'
-        @data = JSON.parse(response.body, symbolize_names: true)
+        data = JSON.parse(response.body, symbolize_names: true)
 
         expect(response.status).to eq(200)
         @data_keys.each do |key|
-          expect(@data[:data]).to have_key(key)
+          expect(data[:data]).to have_key(key)
         end
         @attribute_keys.each do |key|
-          expect(@data.dig(:data,:attributes)).to have_key(key)
+          expect(data.dig(:data,:attributes)).to have_key(key)
         end
         @cw_keys.each do |key|
-          expect(@data.dig(:data, :attributes, :current_weather)).to have_key(key)
+          expect(data.dig(:data, :attributes, :current_weather)).to have_key(key)
         end
         @dw_keys.each do |key|
-          expect(@data.dig(:data, :attributes, :daily_weather, 0)).to have_key(key)
+          expect(data.dig(:data, :attributes, :daily_weather, 0)).to have_key(key)
         end
         @hw_keys.each do |key|
-          expect(@data.dig(:data, :attributes, :hourly_weather, 0)).to have_key(key)
+          expect(data.dig(:data, :attributes, :hourly_weather, 0)).to have_key(key)
         end
 
-        expect(@data[:id]).to eq(nil)
+        expect(data.dig(:data, :id)).to eq(nil)
+        expect(data.dig(:data, :type)).to eq('forecast')
 
-        expect(@data).to_not have_key(:location)
-        expect(@data).to_not have_key(:forecast)
-        expect(@data).to_not have_key(:current)
+        expect(data).to_not have_key(:location)
+        expect(data).to_not have_key(:forecast)
+        expect(data).to_not have_key(:current)
 
       end
     end
