@@ -37,6 +37,10 @@ RSpec.describe 'Road trip endpoints' do
         expect(data.dig(:data, :id)).to eq(nil)
         expect(data.dig(:data, :attributes, :start_city)).to eq("Cincinatti,OH")
         expect(data.dig(:data, :attributes, :end_city)).to eq("Chicago,IL")
+
+        expect(data).to_not have_key(:origin)
+        expect(data).to_not have_key(:destination)
+        expect(data).to_not have_key(:api_key)
       end
     end
     describe 'sad path' do
@@ -52,6 +56,9 @@ RSpec.describe 'Road trip endpoints' do
         data = JSON.parse(response.body, symbolize_names: true)
 
         expect(data.dig(:error, :message)).to eq("API key must be provided.")
+        
+        expect(data).to_not have_key(:origin)
+        expect(data).to_not have_key(:destination)
       end
       it 'sends an error if api key is invalid', :vcr do
         user_1 = User.create!(email: "whatever@example.com", password: "password", password_confirmation: "password")
@@ -68,6 +75,10 @@ RSpec.describe 'Road trip endpoints' do
         data = JSON.parse(response.body, symbolize_names: true)
 
         expect(data.dig(:error, :message)).to eq("API key invalid.")
+
+        expect(data).to_not have_key(:origin)
+        expect(data).to_not have_key(:destination)
+        expect(data).to_not have_key(:api_key)
       end
       it 'returns an error if road trip is impossible', :vcr do
         user_1 = User.create!(email: "whatever@example.com", password: "password", password_confirmation: "password")
@@ -84,6 +95,10 @@ RSpec.describe 'Road trip endpoints' do
         data = JSON.parse(response.body, symbolize_names: true)
 
         expect(data.dig(:error, :message)).to eq("That road trip is impossible, sorry.")
+
+        expect(data).to_not have_key(:origin)
+        expect(data).to_not have_key(:destination)
+        expect(data).to_not have_key(:api_key)
       end
     end
   end
