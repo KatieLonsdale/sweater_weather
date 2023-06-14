@@ -4,6 +4,8 @@ RSpec.describe 'User endpoints' do
   describe 'create new user' do
     describe 'happy path' do
       it 'creates user and returns user info' do
+        user_count = User.all.count
+
         user_params = {
           email: "whatever@example.com",
           password: "password",
@@ -26,11 +28,14 @@ RSpec.describe 'User endpoints' do
         expect(data.dig(:data, :attributes)).to_not have_key(:password)
         expect(data.dig(:data, :attributes)).to_not have_key(:password_confirmation)
         expect(data.dig(:data, :attributes)).to_not have_key(:password_digest)
+
+        expect(User.all.count).to eq(user_count + 1)
       end
     end
     describe 'sad path' do
       it 'returns an error if the email already exists' do
         user_1 = User.create!(email: "whatever@example.com", password: "password", password_confirmation: "password")
+        user_count = User.all.count
 
         user_params = {
           email: user_1.email,
@@ -49,6 +54,8 @@ RSpec.describe 'User endpoints' do
         expect(data).to_not have_key(:password)
         expect(data).to_not have_key(:password_confirmation)
         expect(data).to_not have_key(:password_digest)
+
+        expect(User.all.count).to eq(user_count)
       end
 
       it 'returns an error if passwords dont match' do
