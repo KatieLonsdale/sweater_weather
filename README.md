@@ -3,17 +3,136 @@
 ## About
 This project is a RESTful API that provides weather forecast and road trip information. It offers the following endpoints:
 
-* GET /api/v0/forecast?location=Denver, CO
-  * Returns the current, daily, and hourly forecast for a specified city (example above). City and state required.
+# API Endpoints
 
-* POST /api/v0/users
-  * Use this endpoint to create a new user. Email, password, and password confirmation must be included as a JSON payload in the body of the request. Upon a successful creation, a user id and API key will be generated and returned in the response.
+## **GET /api/v0/forecast**
+Fetches the current, daily, and hourly forecast for a specified city. 
 
-* POST /api/v0/sessions
-  * Use this endpoint to log in an existing user. Email and password must be included as a JSON payload in the body of the request. Upon successful login, user's id, email, and API key will be returned in the response.
+**Query Parameters:**
+- `location`: Required. City and state in the format `City, State`.
 
-* POST /api/v0/road_trip
-  * Use this endpoint to create a new road trip. Origin city, destination city, and a valid API key must be included as a JSON payload in the body of the request. If a valid request is sent over, details for the new road trip will be returned, including travel time and the weather forecast for the estimated time of arrival in the destination city.
+**Example Request:**
+```http
+GET /api/v0/forecast?location=Denver, CO
+```
+
+**Example Response:**
+```http
+{
+  "current": {
+    "temperature": 72,
+    "conditions": "Partly Cloudy"
+  },
+  "daily": [
+    {
+      "date": "2025-01-24",
+      "high": 75,
+      "low": 50,
+      "conditions": "Sunny"
+    }
+  ],
+  "hourly": [
+    {
+      "time": "13:00",
+      "temperature": 72,
+      "conditions": "Partly Cloudy"
+    }
+  ]
+}
+```
+
+## **POST /api/v0/users
+Use this endpoint to create a new user.
+
+Request Body:
+
+email (string): Required. The user's email.
+password (string): Required. The user's password.
+password_confirmation (string): Required. Must match the password.
+
+Example Request:
+
+```http
+POST /api/v0/users
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "securepassword123",
+  "password_confirmation": "securepassword123"
+}
+```
+
+Example Response:
+
+```http
+{
+  "user_id": "12345",
+  "api_key": "abcdef1234567890"
+}
+```
+## **POST /api/v0/sessions
+Use this endpoint to log in an existing user.
+
+Request Body:
+
+email (string): Required. The user's email.
+password (string): Required. The user's password.
+Example Request:
+
+```http
+POST /api/v0/sessions
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "securepassword123"
+}
+```
+Example Response:
+```http
+{
+  "user_id": "12345",
+  "email": "user@example.com",
+  "api_key": "abcdef1234567890"
+}
+```
+
+## **POST /api/v0/road_trip
+Use this endpoint to create a new road trip.
+
+Request Body:
+
+origin (string): Required. The starting city.
+destination (string): Required. The destination city.
+api_key (string): Required. A valid API key for the user.
+
+
+Example Request:
+
+```http
+POST /api/v0/road_trip
+Content-Type: application/json
+
+{
+  "origin": "Denver, CO",
+  "destination": "Boulder, CO",
+  "api_key": "abcdef1234567890"
+}
+```
+
+Example Response:
+```http
+{
+  "origin": "Denver, CO",
+  "destination": "Boulder, CO",
+  "travel_time": "45 minutes",
+  "forecast": {
+    "temperature": 65,
+    "conditions": "Sunny"
+  }
+}
+```
 
 ## Set Up
 1. In your local files, navigate to the directory you want this repository to be stored in.
