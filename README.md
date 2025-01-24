@@ -41,14 +41,14 @@ GET /api/v0/forecast?location=Denver, CO
 }
 ```
 
-## **POST /api/v0/users
+## POST /api/v0/users
 Use this endpoint to create a new user.
 
 Request Body:
 
-email (string): Required. The user's email.
-password (string): Required. The user's password.
-password_confirmation (string): Required. Must match the password.
+- email (string): Required. The user's email.
+- password (string): Required. The user's password.
+- password_confirmation (string): Required. Must match the password.
 
 Example Request:
 
@@ -71,13 +71,13 @@ Example Response:
   "api_key": "abcdef1234567890"
 }
 ```
-## **POST /api/v0/sessions
+## POST /api/v0/sessions
 Use this endpoint to log in an existing user.
 
 Request Body:
 
-email (string): Required. The user's email.
-password (string): Required. The user's password.
+- email (string): Required. The user's email.
+- password (string): Required. The user's password.
 Example Request:
 
 ```http
@@ -98,14 +98,14 @@ Example Response:
 }
 ```
 
-## **POST /api/v0/road_trip
+## POST /api/v0/road_trip
 Use this endpoint to create a new road trip.
 
 Request Body:
 
-origin (string): Required. The starting city.
-destination (string): Required. The destination city.
-api_key (string): Required. A valid API key for the user.
+- origin (string): Required. The starting city.
+- destination (string): Required. The destination city.
+- api_key (string): Required. A valid API key for the user.
 
 
 Example Request:
